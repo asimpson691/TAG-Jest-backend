@@ -1,7 +1,7 @@
-const { getAlbumsForUser } = require("./database");
-const { writePhotosToS3 } = require("./s3");
+import { getAlbumsForUser } from "./database";
+import { writePhotosToS3 } from "./s3";
 
-const addPhotosToAlbum = async (userId, albumId, photos) => {
+export const addPhotosToAlbum = async (userId, albumId, photos) => {
   const userAlbumIds = await getAlbumsForUser(userId);
 
   if (!userAlbumIds.includes(albumId)) {
@@ -19,8 +19,4 @@ const addPhotosToAlbum = async (userId, albumId, photos) => {
       )
     )
   );
-};
-
-module.exports = {
-  addPhotosToAlbum,
 };

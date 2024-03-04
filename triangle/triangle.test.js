@@ -1,4 +1,4 @@
-const { determineTriangle } = require("./triangle");
+import { determineTriangle } from "./triangle";
 
 describe("determineTriangle", () => {
   it("shall not identify a triangle where a + b < c", () => {

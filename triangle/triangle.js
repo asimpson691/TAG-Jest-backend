@@ -1,4 +1,4 @@
-const determineTriangle = (a, b, c) => {
+export const determineTriangle = (a, b, c) => {
   if (isNaN(a) || isNaN(b) || isNaN(b)) {
     throw new Error("Unexpected Input");
   }
@@ -16,8 +16,4 @@ const determineTriangle = (a, b, c) => {
   }
 
   return "scalene";
-};
-
-module.exports = {
-  determineTriangle,
 };

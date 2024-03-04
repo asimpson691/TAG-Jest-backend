@@ -1,13 +1,10 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const {
-  QueryCommand,
-  DynamoDBDocumentClient,
-} = require("@aws-sdk/lib-dynamodb");
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { QueryCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
-const getAlbumsForUser = async (userId) => {
+export const getAlbumsForUser = async (userId) => {
   const { Items } = await docClient.send(
     new QueryCommand({
       TableName: "user-albums",
@@ -19,8 +16,4 @@ const getAlbumsForUser = async (userId) => {
   );
 
   return Items.map((albums) => albums.id);
-};
-
-module.exports = {
-  getAlbumsForUser,
 };

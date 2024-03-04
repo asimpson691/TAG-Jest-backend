@@ -1,9 +1,9 @@
-const { addPhotosToAlbum } = require("./index");
-const database = require("./database");
-const { writePhotosToS3 } = require("./s3");
+import { jest } from "@jest/globals";
+import { writePhotosToS3 } from "./s3";
 
-jest.mock("./database"); // needed
-jest.spyOn(database, "getAlbumsForUser").mockResolvedValue([]);
+jest.unstable_mockModule("./database", () => ({
+  getAlbumsForUser: jest.fn().mockResolvedValue([]),
+}));
 
 describe("addPhotosToAlbum", () => {
   const userId = "some-user-123";
@@ -11,6 +11,8 @@ describe("addPhotosToAlbum", () => {
   const photos = ["VGhpcyBpcyBhbiBleGFtcGxlIHN0cmluZw=="];
 
   it("shall throw an error if the user doesn't have access to the specified album", async () => {
+    const { addPhotosToAlbum } = await import("./index");
+
     await expect(addPhotosToAlbum(userId, albumId, photos)).rejects.toThrow(
       "User some-user-123 does not have access to the album some-album-123"
     );
